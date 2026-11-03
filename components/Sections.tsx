@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import Link from "next/link";
-import { leadLink, site } from "@/lib/config";
+import { site, waNatural } from "@/lib/config";
 import { faqs, problems, report, results, resultsNote, solutions } from "@/lib/content";
 import { AboutVideo } from "./AboutVideo";
 import { Icon } from "./Icons";
@@ -24,7 +24,7 @@ export function Header() {
         </nav>
         <a
           className="btn sm"
-          href={leadLink({ origem: "menu", abertura: "Olá! Vim pelo site da SUDO." })}
+          href={waNatural(["Oi! Vi o site de vocês e queria tirar umas dúvidas."])}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -223,11 +223,10 @@ export function ReportSection() {
           </p>
           <a
             className="btn"
-            href={leadLink({
-              origem: "fluxo",
-              abertura: "Olá! Quero ver um exemplo do relatório mensal da SUDO.",
-              dados: { interesse: "exemplo de relatorio mensal" },
-            })}
+            href={waNatural([
+              "Oi! Vi no site que vocês mandam um relatório todo mês.",
+              "Consigo ver um exemplo de como ele vem?",
+            ])}
             target="_blank"
             rel="noopener noreferrer"
           >

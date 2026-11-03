@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { leadLink, site } from "@/lib/config";
+import { useEffect, useState } from "react";
+import { emFrase, minuscula, site, waNatural } from "@/lib/config";
 import { pains, type PainKey } from "@/lib/interactive";
+import { useActivity } from "./Activity";
 import { Icon } from "./Icons";
 
 const ramos = [
@@ -28,6 +29,7 @@ const needs = [
 export function Contact() {
   const [f, setF] = useState({ nome: "", neg: "", ramo: "", cidade: "", need: "", msg: "" });
   const [dores, setDores] = useState<PainKey[]>([]);
+  const { track } = useActivity();
 
   const set = (k: keyof typeof f) => (e: { target: { value: string } }) =>
     setF((s) => ({ ...s, [k]: e.target.value }));
@@ -35,19 +37,59 @@ export function Contact() {
   const toggleDor = (k: PainKey) =>
     setDores((d) => (d.includes(k) ? d.filter((x) => x !== k) : [...d, k]));
 
-  const link = leadLink({
-    origem: "formulario",
-    abertura: "Olá! Vim pelo site da SUDO e quero um diagnóstico gratuito.",
-    dados: {
-      nome: f.nome,
-      negocio: f.neg,
-      ramo: f.ramo,
-      cidade: f.cidade,
-      preciso_de: f.need,
-      dores: dores.map((k) => pains.find((p) => p.key === k)!.label),
-      detalhes: f.msg,
-    },
-  });
+  // Registra o formulário conforme é preenchido, mesmo que a pessoa não envie.
+  useEffect(() => {
+    const preenchido = [
+      f.nome && `nome: ${f.nome}`,
+      f.neg && `negócio: ${f.neg}`,
+      f.ramo && `ramo: ${f.ramo}`,
+      f.cidade && `cidade: ${f.cidade}`,
+      f.need && `precisa de: ${f.need}`,
+      f.msg && `detalhes: ${f.msg}`,
+    ].filter(Boolean);
+    if (!preenchido.length) return;
+    const t = setTimeout(
+      () => track("formulario", `Preencheu no formulário — ${preenchido.join("; ")}.`),
+      1200,
+    );
+    return () => clearTimeout(t);
+  }, [f, track]);
+
+  // Transforma o formulário numa apresentação curta, do jeito que ele falaria.
+  const nome = f.nome.trim();
+  const neg = f.neg.trim();
+  const cidade = f.cidade.trim();
+  const doresEmFrase = emFrase(
+    dores.map((k) => minuscula(pains.find((p) => p.key === k)!.label)),
+  );
+
+  // Se nada foi preenchido, o botão ainda precisa gerar uma mensagem que faça
+  // sentido sozinha, em vez de um "Oi! Podemos conversar?" solto.
+  const contou = Boolean(neg || cidade || f.ramo || doresEmFrase || f.need || f.msg.trim());
+
+  const link = waNatural(
+    contou
+      ? [
+          nome ? `Oi! Sou o ${nome}.` : "Oi!",
+          neg && cidade
+            ? `Tenho o ${neg}, em ${cidade}.`
+            : neg
+              ? `Tenho o ${neg}.`
+              : cidade
+                ? `Meu negócio é em ${cidade}.`
+                : "",
+          !neg && f.ramo ? `Trabalho com ${minuscula(f.ramo)}.` : "",
+          doresEmFrase && `Meu problema hoje é ${doresEmFrase}.`,
+          f.need && `Estava vendo ${minuscula(f.need)}.`,
+          f.msg.trim(),
+          "Podemos conversar?",
+        ]
+      : [
+          nome ? `Oi! Sou o ${nome}.` : "Oi!",
+          "Vi o site de vocês e queria conversar sobre o meu negócio.",
+          "Podemos marcar aquele diagnóstico de 20 minutos?",
+        ],
+  );
 
   return (
     <section className="contact band" id="contato">

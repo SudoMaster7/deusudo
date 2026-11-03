@@ -1,5 +1,4 @@
 import { faqSchema, jsonLdProps } from "@/lib/schema";
-import { NicheProvider } from "@/components/NicheContext";
 import { Hero } from "@/components/Hero";
 import { Flow } from "@/components/Flow";
 import { Diagnostic } from "@/components/Diagnostic";
@@ -21,7 +20,7 @@ import {
 
 export default function Home() {
   return (
-    <NicheProvider>
+    <>
       <Header />
       <main id="topo">
         <Hero />
@@ -45,6 +44,6 @@ export default function Home() {
       </main>
       <Footer />
       <script {...jsonLdProps(faqSchema)} />
-    </NicheProvider>
+    </>
   );
 }

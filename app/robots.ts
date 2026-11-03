@@ -3,7 +3,8 @@ import { site } from "@/lib/config";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: "*", allow: "/" },
+    // O painel e a rota do assistente não entram em buscador.
+    rules: { userAgent: "*", allow: "/", disallow: ["/admin", "/api/"] },
     sitemap: `${site.url}/sitemap.xml`,
   };
 }

@@ -3,6 +3,7 @@ import { Bricolage_Grotesque, Figtree } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/config";
 import { jsonLdProps, organizationSchema, websiteSchema } from "@/lib/schema";
+import { Providers } from "@/components/Providers";
 
 // Fontes servidas pelo próprio domínio. Carregam mais rápido que o link do Google
 // e não vazam o IP de quem visita para outro servidor.
@@ -74,7 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a className="skip" href="#topo">
           Ir para o conteúdo
         </a>
-        {children}
+        <Providers>{children}</Providers>
         <script {...jsonLdProps(organizationSchema)} />
         <script {...jsonLdProps(websiteSchema)} />
       </body>

@@ -17,7 +17,7 @@ export default function Privacidade() {
         <section className="page-top band">
           <div className="wrap prose">
             <h1>Política de privacidade</h1>
-            <p className="stamp">Última atualização: 30 de outubro de 2026</p>
+            <p className="stamp">Última atualização: 3 de novembro de 2026</p>
 
             <h2>Quem somos</h2>
             <p>
@@ -33,6 +33,33 @@ export default function Privacidade() {
               teste também só chega até nós se você enviá-lo.
             </p>
 
+            <h2>O assistente de IA do canto da tela</h2>
+            <p>
+              O botão &ldquo;S&rdquo; abre um assistente de inteligência artificial. Se você conversar com ele, nós
+              registramos o conteúdo dessa conversa e o que você testou no site: o ramo que escolheu nas
+              demonstrações, os números que colocou no simulador, as regras que montou no laboratório do
+              atendente, os itens da vitrine de teste e os campos que preencheu no formulário. Usamos isso
+              para entender o seu interesse e preparar o diagnóstico gratuito.
+            </p>
+            <p>
+              Enquanto você só navega, nada sai do seu navegador. O registro acontece em dois momentos: quando
+              você envia uma mensagem ao assistente, e quando você toca em um botão para falar com a gente no
+              WhatsApp. Nesse segundo caso guardamos de onde você chegou ao site, o que você testou aqui e a
+              mensagem que o botão montou — a mesma que você está nos enviando de qualquer forma.
+            </p>
+            <p>
+              Para distinguir uma visita da outra, guardamos no seu navegador um identificador aleatório, que
+              não contém nome, e-mail nem telefone. Guardamos também de onde você veio: o endereço da
+              página que te trouxe até aqui e, se você chegou por um anúncio nosso, os parâmetros de
+              campanha que vêm no link. Suas mensagens ao assistente são processadas por um provedor de
+              inteligência artificial e guardadas em um banco de dados nosso, com acesso restrito. Não
+              gravamos o seu endereço de IP.
+            </p>
+            <p>
+              Não escreva senha, número de cartão, CPF ou dado de saúde no assistente. Se quiser que o
+              registro da sua conversa seja apagado, escreva para {site.email}.
+            </p>
+
             <h2>Para que usamos</h2>
             <p>
               Usamos as informações que você nos envia para responder ao seu contato e preparar o
@@ -42,8 +69,10 @@ export default function Privacidade() {
 
             <h2>Cookies</h2>
             <p>
-              Esta versão do site não usa cookies de rastreamento nem ferramentas de análise. Se isso mudar,
-              esta página será atualizada.
+              Esta versão do site não usa cookies de rastreamento nem ferramentas de análise. O assistente de
+              IA guarda no seu navegador apenas o identificador aleatório e a origem da visita, descritos
+              acima, que servem para juntar as suas interações num registro só. Se passarmos a usar
+              rastreadores de terceiros, esta página será atualizada.
             </p>
 
             <h2>Seus direitos</h2>

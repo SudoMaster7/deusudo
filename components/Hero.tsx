@@ -1,7 +1,7 @@
 "use client";
 
 import { NICHES } from "@/lib/niches";
-import { leadLink } from "@/lib/config";
+import { waNatural } from "@/lib/config";
 import { Icon } from "./Icons";
 import { NicheChips, useNiche } from "./NicheContext";
 
@@ -22,11 +22,10 @@ export function Hero() {
           <div className="cta-row">
             <a
               className="btn"
-              href={leadLink({
-                origem: "topo",
-                abertura: "Olá! Vim pelo site da SUDO e quero um diagnóstico gratuito.",
-                dados: { ramo_escolhido_no_site: n.label },
-              })}
+              href={waNatural([
+                "Oi! Vi o site de vocês e queria entender o que daria para fazer no meu negócio.",
+                "Podemos marcar aquele diagnóstico de 20 minutos?",
+              ])}
               target="_blank"
               rel="noopener noreferrer"
             >

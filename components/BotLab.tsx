@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { leadLink } from "@/lib/config";
+import { emFrase, waNatural } from "@/lib/config";
 import {
   detectIntent,
   labPresets,
@@ -11,10 +11,17 @@ import {
   tones,
   type BotRules,
 } from "@/lib/interactive";
+import { useActivity } from "./Activity";
 import { Icon } from "./Icons";
 import { NicheChips, useNiche } from "./NicheContext";
 
 type Msg = { from: "in" | "out"; text: string };
+
+/** Encaixa o texto no meio da frase sem quebrar se vier vazio. */
+const minusculaSegura = (t: string) => {
+  const limpo = t.trim();
+  return limpo ? limpo.charAt(0).toLowerCase() + limpo.slice(1) : "";
+};
 
 const firstHello = (r: BotRules) =>
   `Oi! Sou o atendente de IA do ${r.biz}. Trabalhamos com ${r.sells}. Como posso te ajudar?`;
@@ -45,6 +52,7 @@ function LabBody({ preset }: { preset: BotRules }) {
   const [draft, setDraft] = useState("");
   const [typing, setTyping] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const { track } = useActivity();
 
   useEffect(() => () => void (timer.current && clearTimeout(timer.current)), []);
 
@@ -68,11 +76,36 @@ function LabBody({ preset }: { preset: BotRules }) {
   }
 
   const resumo = rulesSummary(r);
-  const link = leadLink({
-    origem: "laboratorio",
-    abertura: "Olá! Montei o atendente do meu jeito no site da SUDO e quero ele no meu número.",
-    dados: { regras_que_eu_escolhi: resumo },
-  });
+  const comoQuer = emFrase(
+    [
+      r.hours === "24h" ? "atendendo a qualquer hora" : "no horário comercial",
+      r.tellsPrice ? "podendo falar o valor" : "sem falar valor, me chamando antes",
+      r.books ? "marcando horário" : "só anotando para eu confirmar",
+    ].filter(Boolean),
+  );
+
+  // Registra as regras montadas e o que a pessoa perguntou ao atendente de teste.
+  useEffect(() => {
+    const t = setTimeout(
+      () => track("laboratorio", `Montou um atendente no laboratório — ${resumo.join("; ")}.`),
+      900,
+    );
+    return () => clearTimeout(t);
+  }, [resumo, track]);
+
+  useEffect(() => {
+    const perguntas = log.filter((m) => m.from === "in").map((m) => m.text);
+    if (perguntas.length) {
+      track("perguntas_lab", `Perguntou ao atendente de teste: ${perguntas.join(" | ")}.`);
+    }
+  }, [log, track]);
+  // Conta o que ele montou como um pedido, não como um formulário de configuração.
+  const link = waNatural([
+    "Oi! Mexi naquele teste do atendente no site e montei do jeito que eu queria:",
+    `${comoQuer}.`,
+    r.never.trim() && `E tem uma coisa que ele não pode fazer: ${minusculaSegura(r.never)}.`,
+    "Dá para deixar assim no meu número?",
+  ]);
 
   return (
     <div className="lab">

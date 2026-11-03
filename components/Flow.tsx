@@ -1,13 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { funnel, funnelNote } from "@/lib/content";
-import { leadLink } from "@/lib/config";
+import { minuscula, waNatural } from "@/lib/config";
+import { useActivity } from "./Activity";
 import { Icon } from "./Icons";
 
 export function Flow() {
   const [open, setOpen] = useState(0);
   const stage = funnel[open];
+  const { track } = useActivity();
+
+  // A primeira etapa já vem aberta, então só registra quando a pessoa troca.
+  useEffect(() => {
+    if (open === 0) return;
+    track("etapa_fluxo", `Abriu a etapa "${stage.short}" do fluxo para ler mais.`);
+  }, [open, stage.short, track]);
 
   return (
     <section className="funnel-band band" id="fluxo">
@@ -67,11 +75,10 @@ export function Flow() {
             </p>
             <a
               className="btn white"
-              href={leadLink({
-                origem: "fluxo",
-                abertura: `Olá! Vim pelo site da SUDO e quero entender melhor a etapa "${stage.short}" do fluxo.`,
-                dados: { etapa: stage.short },
-              })}
+              href={waNatural([
+                `Oi! Estava lendo no site a parte de ${minuscula(stage.short)}`,
+                "e queria entender melhor como isso funcionaria no meu caso.",
+              ])}
               target="_blank"
               rel="noopener noreferrer"
             >

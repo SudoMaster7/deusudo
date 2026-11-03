@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { leadLink } from "@/lib/config";
+import { useEffect, useMemo, useState } from "react";
+import { emFrase, minuscula, waNatural } from "@/lib/config";
 import { painFixes, pains, simDefaults, simRanges, type PainKey } from "@/lib/interactive";
+import { useActivity } from "./Activity";
 import { Icon } from "./Icons";
 
 const brl = (n: number) =>
@@ -13,6 +14,7 @@ type Sim = typeof simDefaults;
 export function Diagnostic() {
   const [sim, setSim] = useState<Sim>(simDefaults);
   const [marked, setMarked] = useState<PainKey[]>(["resposta", "horario"]);
+  const { track } = useActivity();
 
   const set = (k: keyof Sim) => (e: { target: { value: string } }) =>
     setSim((s) => ({ ...s, [k]: Number(e.target.value) }));
@@ -38,19 +40,39 @@ export function Diagnostic() {
     return [...keys].map((k) => painFixes[k]);
   }, [marked]);
 
-  const link = leadLink({
-    origem: "diagnostico",
-    abertura: "Olá! Fiz a conta no site da SUDO e quero o diagnóstico gratuito.",
-    dados: {
-      mensagens_por_semana: sim.mensagens,
-      respondidas_no_mesmo_dia: `${sim.rapidas}%`,
-      ticket_medio: brl(sim.ticket),
-      taxa_de_fechamento: `${sim.fechamento}%`,
-      sem_resposta_rapida_no_mes: calc.semResposta,
-      perda_estimada_por_mes: brl(calc.perdido),
-      dores: marked.map((k) => pains.find((p) => p.key === k)!.label),
-    },
-  });
+  // Registra o retrato do simulador. Só o valor final de cada ajuste importa,
+  // então uma pequena espera evita gravar cada passo do controle deslizante.
+  useEffect(() => {
+    const t = setTimeout(() => {
+      track(
+        "simulador",
+        `No simulador: ${sim.mensagens} mensagens por semana, ${sim.rapidas}% respondidas no mesmo dia, ` +
+          `ticket de ${brl(sim.ticket)}, ${sim.fechamento}% de fechamento. ` +
+          `Concluiu que deixa ${brl(calc.perdido)} na mesa por mês.`,
+      );
+    }, 900);
+    return () => clearTimeout(t);
+  }, [sim, calc.perdido, track]);
+
+  useEffect(() => {
+    if (!marked.length) return;
+    track(
+      "dores",
+      `Marcou como dor: ${marked.map((k) => pains.find((p) => p.key === k)!.label).join("; ")}.`,
+    );
+  }, [marked, track]);
+
+  // Soa como ele contando a própria conta, com os números que digitou.
+  const doresEmFrase = emFrase(
+    marked.map((k) => minuscula(pains.find((p) => p.key === k)!.label)),
+  );
+  const link = waNatural([
+    "Oi! Fiz aquela conta no site de vocês.",
+    `Recebo umas ${sim.mensagens} mensagens por semana e só consigo responder ${sim.rapidas}% no mesmo dia,`,
+    `então dá uns ${brl(calc.perdido)} por mês que escapa.`,
+    doresEmFrase && `O que mais me pega é ${doresEmFrase}.`,
+    "Como vocês resolveriam isso?",
+  ]);
 
   return (
     <section className="diag-band band" id="diagnostico">

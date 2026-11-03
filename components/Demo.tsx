@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NICHES, type NicheKey } from "@/lib/niches";
-import { leadLink } from "@/lib/config";
+import { emFrase, waNatural } from "@/lib/config";
+import { useActivity } from "./Activity";
 import { Icon } from "./Icons";
 import { NicheChips, useNiche } from "./NicheContext";
 
@@ -30,6 +31,7 @@ export function Demo() {
 function DemoBody({ niche }: { niche: NicheKey }) {
   const n = NICHES[niche];
   const [cart, setCart] = useState<number[]>(() => n.items.map(() => 0));
+  const { track } = useActivity();
 
   const change = (i: number, d: number) =>
     setCart((c) => c.map((q, j) => (j === i ? Math.min(20, Math.max(0, q + d)) : q)));
@@ -41,13 +43,20 @@ function DemoBody({ niche }: { niche: NicheKey }) {
   const message = lines.length
     ? `[Demonstração do site deusudo.com - ${n.biz}]\n${n.hello}\n${lines.join("\n")}\nTotal: ${brl(total)}`
     : null;
-  const link = message
-    ? leadLink({
-        origem: "vitrine",
-        abertura: message,
-        dados: { ramo_da_demo: n.label, itens: lines, total: brl(total) },
-      })
+  // A vitrine é demonstração: o pedido é de teste e a mensagem diz isso,
+  // em vez de chegar como um pedido de verdade.
+  const link = lines.length
+    ? waNatural([
+        `Oi! Testei a vitrine do site, a do ${n.biz}, e montei um pedido de ${brl(total)}`,
+        `com ${emFrase(n.items.flatMap((it, i) => (cart[i] ? [it.name.toLowerCase()] : [])))}.`,
+        "Gostei de o pedido já chegar escrito aqui. Dá para fazer isso para o meu negócio?",
+      ])
     : null;
+
+  useEffect(() => {
+    if (!lines.length) return;
+    track("vitrine", `Montou um carrinho de teste em ${n.biz}: ${lines.join(", ")}.`);
+  }, [lines, n.biz, track]);
 
   return (
     <div className="demo">

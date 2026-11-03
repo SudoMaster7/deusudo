@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, type ReactNode } from "react";
 import { NICHES, NICHE_KEYS, type NicheKey } from "@/lib/niches";
+import { useActivity } from "./Activity";
 import { Icon } from "./Icons";
 
 type Ctx = { niche: NicheKey; setNiche: (k: NicheKey) => void };
@@ -19,6 +20,7 @@ export function useNiche() {
 
 export function NicheChips({ label }: { label: string }) {
   const { niche, setNiche } = useNiche();
+  const { track } = useActivity();
   return (
     <div className="chips" role="group" aria-label={label}>
       {NICHE_KEYS.map((k) => (
@@ -27,7 +29,10 @@ export function NicheChips({ label }: { label: string }) {
           type="button"
           className="chip"
           aria-pressed={niche === k}
-          onClick={() => setNiche(k)}
+          onClick={() => {
+            setNiche(k);
+            track("ramo", `Escolheu o ramo "${NICHES[k].label}" nas demonstrações`);
+          }}
         >
           <Icon name={k} />
           {NICHES[k].label}

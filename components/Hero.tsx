@@ -15,9 +15,10 @@ export function Hero() {
         <div>
           <h1>Menos tarefa repetitiva. Mais lucro e controle.</h1>
           <p className="lead">
-            Anúncio que traz cliente direcionado, página que qualifica, atendente de IA que responde
-            em segundos e reunião de diagnóstico para construir só o que o seu negócio precisa.
-            Depois, manutenção e relatório mensal.
+            Feito para quem vende tratamento caro pelo WhatsApp: odontologia, harmonização, capilar,
+            estética. Anúncio que traz paciente com perfil de fechar, página que qualifica, atendente
+            de IA que responde em segundos e reunião de diagnóstico para construir só o que a sua
+            operação precisa. Depois, manutenção e relatório mensal.
           </p>
           <div className="cta-row">
             <a
@@ -30,6 +31,9 @@ export function Hero() {
               rel="noopener noreferrer"
             >
               Quero um diagnóstico gratuito
+            </a>
+            <a className="btn ghost" href="#capacidade">
+              Cabe mais cliente?
             </a>
             <a className="btn ghost" href="#fluxo">
               Ver o fluxo completo
@@ -62,7 +66,9 @@ export function Hero() {
               ))}
             </div>
           </div>
-          <p className="stage-note">Exemplo de atendimento fora do horário comercial.</p>
+          <p className="stage-note">
+            Exemplo de atendimento fora do horário comercial, com clínica fictícia.
+          </p>
         </div>
       </div>
     </section>

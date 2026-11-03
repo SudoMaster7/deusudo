@@ -6,17 +6,77 @@ export type Status = "live" | "wip" | "demo";
 export const problems = [
   {
     title: "Mensagem sem resposta",
-    text: "Quem pergunta o preço às 22h não espera até amanhã. Vira cliente do concorrente.",
+    text: "Quem pergunta o preço do implante às 22h não espera até amanhã. Fecha com a clínica que respondeu primeiro.",
   },
   {
-    title: "Tarefa manual repetida",
-    text: "Pedido copiado do WhatsApp para a planilha, agenda no caderno, relatório feito à mão. Horas por semana que ninguém cobra.",
+    title: "Avaliação que não vira tratamento",
+    text: "O paciente pede orçamento, some e ninguém retoma. Ou marca a avaliação e não aparece, com a cadeira parada e o profissional esperando.",
   },
   {
-    title: "Dados espalhados",
-    text: "Cada informação mora num lugar e nenhum número é confiável na hora de decidir.",
+    title: "Número nenhum na mão",
+    text: "Você não sabe quanto custou cada paciente novo, quantas avaliações fecharam nem qual anúncio trouxe quem pagou o ticket maior.",
   },
 ];
+
+// A pergunta que abre a reunião de diagnóstico: antes de trazer mais gente,
+// a gente olha se a operação comporta. Cada resposta leva a um caminho
+// diferente, e uma delas é "não anuncie agora".
+export type CapacityOption = {
+  key: string;
+  label: string;
+  verdict: string;
+  text: string;
+  does: string[];
+  /** Como a pessoa contaria isso no WhatsApp, na primeira pessoa. */
+  wa: string;
+};
+
+export const capacity = {
+  title: "O seu negócio comporta mais clientes?",
+  lead:
+    "Essa é a primeira pergunta do diagnóstico, antes de falar de anúncio. Encher a agenda de uma clínica que já está no limite não aumenta o faturamento: aumenta fila, falta e paciente irritado.",
+  question: "Se na semana que vem chegassem 30 pedidos de avaliação, o que aconteceria?",
+  options: [
+    {
+      key: "sobra",
+      label: "Tenho horário vago para atender",
+      verdict: "Falta demanda, não estrutura.",
+      text: "Existe hora livre na agenda e ela não está sendo vendida. É o caso em que o fluxo completo dá retorno mais rápido: mais gente certa chegando e sendo atendida em segundos.",
+      does: [
+        "Anúncio para quem tem perfil e condição de fechar o seu ticket.",
+        "Página que qualifica antes de ocupar o tempo da recepção.",
+        "Atendente de IA respondendo em segundos, inclusive de madrugada.",
+      ],
+      wa: "Tenho horário vago na agenda e queria encher com paciente do meu ticket.",
+    },
+    {
+      key: "aperta",
+      label: "Atenderia, mas no limite da equipe",
+      verdict: "Cabe mais, com a operação organizada antes.",
+      text: "Dá para crescer, mas sem jogar tudo na recepção. Primeiro sai da mão o que é repetitivo, depois a mídia abre por fase, no ritmo que a equipe aguenta.",
+      does: [
+        "Atendente de IA assume preço, horário e dúvida repetida, 24h.",
+        "Agenda, ficha e plano de tratamento num lugar só.",
+        "Mídia escalada por fase, acompanhando o que a equipe dá conta.",
+      ],
+      wa: "Dá para atender mais, mas a equipe já está no limite do que consegue responder.",
+    },
+    {
+      key: "estoura",
+      label: "Não, a agenda já está cheia",
+      verdict: "Aqui mais anúncio não é a resposta.",
+      text: "Se a agenda está cheia, o dinheiro está escapando dentro dela: quem pediu orçamento e não fechou, quem marcou e faltou, quem fez uma sessão e não voltou. É aí que a gente mexe primeiro.",
+      does: [
+        "Confirmação e lembrete automáticos para derrubar o no-show.",
+        "Retomada de quem pediu orçamento e não respondeu mais.",
+        "Relatório mostrando onde o faturamento escapa dentro da própria agenda.",
+      ],
+      wa: "Minha agenda já está cheia, então não sei se faz sentido anunciar agora.",
+    },
+  ] as CapacityOption[],
+  note:
+    "Se o seu negócio não comporta mais cliente neste momento, a gente fala isso na reunião em vez de vender campanha. Anunciar antes de a operação aguentar é queimar dinheiro em paciente que não vai ser bem atendido.",
+};
 
 export const solutions: {
   title: string;
@@ -291,7 +351,15 @@ export const faqs = [
   },
   {
     q: "Quanto preciso investir em anúncio?",
-    a: "Os clientes atuais rodam com algo entre R$ 500 e R$ 700 por mês em mídia e trazem conversa a R$ 4 ou R$ 5 cada. O valor certo para o seu caso sai no diagnóstico, junto com a estimativa de conversas.",
+    a: "Os clientes atuais rodam com algo entre R$ 500 e R$ 700 por mês em mídia e trazem conversa a R$ 4 ou R$ 5 cada. Em tratamento de ticket alto a conversa custa mais, porque o público é mais específico, e ainda assim um único tratamento fechado paga o mês de mídia. O valor certo para o seu caso sai no diagnóstico.",
+  },
+  {
+    q: "Minha clínica é regulada pelo CFO ou pelo CFM. Dá para anunciar?",
+    a: "Dá, respeitando o código: anúncio sem preço, sem antes e depois, sem promessa de resultado e com o responsável técnico identificado. O valor é tratado na conversa privada do WhatsApp e na avaliação, que é onde ele pode ser dito. O atendente de IA é configurado com essas regras e com o que ele nunca pode falar.",
+  },
+  {
+    q: "E se a minha agenda já estiver cheia?",
+    a: "Então o problema não é anúncio. A gente mexe primeiro no que escapa dentro da agenda: confirmação e lembrete para derrubar a falta, retomada de quem pediu orçamento e não fechou, e relatório para ver onde o faturamento está ficando. Se não for hora de anunciar, a gente fala isso na reunião.",
   },
   {
     q: "O que vem no relatório mensal?",

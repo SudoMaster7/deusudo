@@ -1,6 +1,7 @@
 import { faqSchema, jsonLdProps } from "@/lib/schema";
 import { Hero } from "@/components/Hero";
 import { Flow } from "@/components/Flow";
+import { Capacity } from "@/components/Capacity";
 import { Diagnostic } from "@/components/Diagnostic";
 import { BotLab } from "@/components/BotLab";
 import { Demo } from "@/components/Demo";
@@ -30,6 +31,7 @@ export default function Home() {
           </div>
         </section>
         <Problems />
+        <Capacity />
         <Flow />
         <Solutions />
         <Results />

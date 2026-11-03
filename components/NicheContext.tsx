@@ -7,10 +7,10 @@ import { Icon } from "./Icons";
 
 type Ctx = { niche: NicheKey; setNiche: (k: NicheKey) => void };
 
-const NicheCtx = createContext<Ctx>({ niche: "doces", setNiche: () => {} });
+const NicheCtx = createContext<Ctx>({ niche: "odonto", setNiche: () => {} });
 
 export function NicheProvider({ children }: { children: ReactNode }) {
-  const [niche, setNiche] = useState<NicheKey>("doces");
+  const [niche, setNiche] = useState<NicheKey>("odonto");
   return <NicheCtx.Provider value={{ niche, setNiche }}>{children}</NicheCtx.Provider>;
 }
 

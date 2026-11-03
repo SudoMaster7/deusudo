@@ -14,10 +14,11 @@ export function Demo() {
   return (
     <section className="demo-band band" id="demo">
       <div className="wrap">
-        <h2>A mesma vitrine serve para qualquer ramo</h2>
+        <h2>O paciente monta o orçamento e ele chega escrito no WhatsApp</h2>
         <p className="sub">
-          Escolha um ramo, monte o carrinho e veja o pedido chegar escrito no WhatsApp. É uma
-          demonstração com um negócio fictício.
+          Escolha um ramo, marque os procedimentos de interesse e veja a mensagem chegar pronta. É
+          uma demonstração com clínica fictícia: serve igual para plano de tratamento, pacote de
+          sessões ou produto.
         </p>
         <div style={{ marginTop: 22 }}>
           <NicheChips label="Ramo da demonstração" />
@@ -136,8 +137,10 @@ function DemoBody({ niche }: { niche: NicheKey }) {
           ))}
         </ul>
         <p className="same">
-          Mesma estrutura, outro ramo. Só mudam os itens, os textos e as respostas. Neste teste, o
-          pedido chega para a SUDO.
+          Mesma estrutura, outro ramo. Só mudam os itens, os textos e as respostas. Em clínica
+          regulada pelo CFO ou pelo CFM, a mesma vitrine roda sem valor na tela: o paciente marca os
+          procedimentos de interesse e o valor é tratado na conversa privada. Neste teste, o pedido
+          chega para a SUDO.
         </p>
       </div>
     </div>

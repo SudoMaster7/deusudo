@@ -173,6 +173,23 @@ h1{font-size:clamp(2.5rem,6.2vw,4.7rem);font-weight:800;line-height:1.02}
 .after svg{width:22px;height:22px;flex:none;color:var(--accent);margin-top:2px}
 .same{margin-top:24px;padding:16px 18px;border-radius:14px;background:var(--accent-soft);color:var(--navy);font-weight:500}
 
+/* chamado: o negócio comporta mais clientes? */
+.cap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;margin-top:40px;align-items:start}
+.cap-q{font-family:var(--f-display);font-size:clamp(1.3rem,2.6vw,1.7rem);font-weight:800;line-height:1.15;letter-spacing:-.02em}
+.cap-opts{display:grid;gap:10px;margin-top:20px}
+.cap-opt{display:flex;align-items:center;gap:12px;width:100%;min-height:60px;padding:14px 20px;border:1.5px solid var(--line);border-radius:16px;background:var(--white);color:var(--ink);font-family:var(--f-body);font-size:1.02rem;font-weight:600;text-align:left;line-height:1.3;cursor:pointer;transition:border-color .2s,background .2s}
+.cap-opt:hover{border-color:var(--accent)}
+.cap-dot{width:18px;height:18px;flex:none;border-radius:50%;border:2px solid var(--line);transition:border-color .2s,box-shadow .2s}
+.cap-opt[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.cap-opt[aria-pressed="true"] .cap-dot{border-color:#fff;box-shadow:inset 0 0 0 4px var(--accent)}
+.cap-note{margin-top:22px;padding:16px 18px;border-radius:14px;background:var(--accent-soft);color:var(--navy);font-size:.94rem;line-height:1.5}
+.cap-out{border:1.5px solid var(--line)}
+.cap-verdict{display:block;font-family:var(--f-display);font-size:clamp(1.4rem,3vw,1.9rem);font-weight:800;line-height:1.1;letter-spacing:-.02em;color:var(--accent)}
+.cap-text{margin-top:14px;color:var(--muted)}
+.cap-out .btn{width:100%;margin-top:24px}
+.cap-out .small{margin-top:12px;font-size:.85rem;color:var(--muted)}
+.cap-empty{color:var(--muted)}
+
 /* fluxo (etapas clicáveis) */
 .funnel-band{background:var(--navy);color:#fff}
 .funnel-band h2{color:#fff}
@@ -450,7 +467,7 @@ footer nav a{color:#C9D2EC}
   .top .wrap{gap:10px}
   .top .btn{margin-left:auto}
   .burger{display:flex}
-  .hero .wrap,.demo,.data-grid,.contact-grid,.diag,.lab,.report-grid{grid-template-columns:minmax(0,1fr);gap:36px}
+  .hero .wrap,.demo,.data-grid,.contact-grid,.diag,.lab,.report-grid,.cap{grid-template-columns:minmax(0,1fr);gap:36px}
   .rail{grid-template-columns:repeat(3,minmax(0,1fr))}
   .stage-panel{grid-template-columns:minmax(0,1fr);gap:28px;padding:24px}
   .report{grid-template-columns:minmax(0,1fr)}

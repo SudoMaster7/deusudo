@@ -6,13 +6,13 @@
 /** Dores que o visitante marca. Cada uma puxa uma solução. */
 export const pains = [
   { key: "resposta", label: "Mensagem que fica sem resposta", solves: "ia" },
-  { key: "horario", label: "Cliente chega fora do horário", solves: "ia" },
-  { key: "repetida", label: "Respondo a mesma pergunta o dia inteiro", solves: "ia" },
+  { key: "horario", label: "Chega de madrugada e no fim de semana", solves: "ia" },
+  { key: "preco", label: "Pergunta o preço e desaparece", solves: "ia" },
+  { key: "noshow", label: "Marca a avaliação e não aparece", solves: "ia" },
   { key: "poucos", label: "Chega pouca gente nova", solves: "ads" },
-  { key: "errado", label: "Chega gente que não é meu cliente", solves: "ads" },
-  { key: "manual", label: "Anoto pedido e agenda à mão", solves: "sis" },
-  { key: "dados", label: "Não sei quanto custa cada cliente", solves: "rel" },
-  { key: "faltou", label: "Cliente marca e não aparece", solves: "ia" },
+  { key: "errado", label: "Chega quem não paga o meu ticket", solves: "ads" },
+  { key: "manual", label: "Agenda e ficha anotadas à mão", solves: "sis" },
+  { key: "dados", label: "Não sei quanto custa cada paciente novo", solves: "rel" },
 ] as const;
 
 export type PainKey = (typeof pains)[number]["key"];
@@ -20,34 +20,34 @@ export type PainKey = (typeof pains)[number]["key"];
 export const painFixes: Record<string, { title: string; text: string }> = {
   ia: {
     title: "Atendente de IA no WhatsApp",
-    text: "Responde em segundos, 24h, com os seus serviços e preços, e lembra o cliente antes do horário marcado.",
+    text: "Responde em segundos, 24h, com os seus procedimentos e faixas de valor, puxa a avaliação e lembra o paciente antes do horário, para a cadeira não ficar vazia.",
   },
   ads: {
     title: "Tráfego pago direcionado",
-    text: "Anúncio para o público que compra de você, com destino direto no WhatsApp e custo por conversa medido.",
+    text: "Anúncio para quem tem perfil e condição de fechar o seu ticket, com destino direto no WhatsApp e custo por conversa medido.",
   },
   sis: {
     title: "Sistema sob medida",
-    text: "Pedido, agenda e cadastro num lugar só, do jeito que o seu negócio já funciona.",
+    text: "Agenda, ficha e plano de tratamento num lugar só, com prontuário dentro da LGPD.",
   },
   rel: {
     title: "Relatório mensal",
-    text: "Quanto custou cada cliente interessado, qual anúncio ainda vende e o que mudar no mês seguinte.",
+    text: "Quanto custou cada paciente novo, qual anúncio ainda traz avaliação e o que mudar no mês seguinte.",
   },
 };
 
 /** Valores iniciais do simulador. O visitante muda todos. */
 export const simDefaults = {
-  mensagens: 60, // por semana
+  mensagens: 80, // por semana
   rapidas: 40, // % respondidas no mesmo dia
-  ticket: 180, // R$
-  fechamento: 25, // % que fecha quando é bem atendida
+  ticket: 2800, // R$ — ticket de tratamento, não de sessão avulsa
+  fechamento: 20, // % que fecha quando é bem atendida
 };
 
 export const simRanges = {
   mensagens: { min: 10, max: 400, step: 10 },
   rapidas: { min: 0, max: 100, step: 5 },
-  ticket: { min: 40, max: 2000, step: 20 },
+  ticket: { min: 200, max: 30000, step: 100 },
   fechamento: { min: 5, max: 60, step: 5 },
 };
 
@@ -74,45 +74,45 @@ export type BotRules = {
 
 /** Pré-ajuste por ramo, para a pessoa já ver algo parecido com o negócio dela. */
 export const labPresets: Record<string, BotRules> = {
-  doces: {
-    biz: "Doce Ateliê",
-    sells: "bolos e doces por encomenda",
-    tone: "caloroso",
-    hours: "24h",
-    price: "R$ 68,00",
-    tellsPrice: true,
-    books: true,
-    never: "prometer entrega para o mesmo dia",
-  },
-  roupas: {
-    biz: "Ateliê Linho",
-    sells: "roupas de linho e alfaiataria",
-    tone: "direto",
-    hours: "24h",
-    price: "R$ 189,00",
-    tellsPrice: true,
-    books: false,
-    never: "prometer desconto sem a dona autorizar",
-  },
-  mecanica: {
-    biz: "Oficina Prime",
-    sells: "revisão, freios e diagnóstico",
-    tone: "direto",
-    hours: "comercial",
-    price: "R$ 320,00",
-    tellsPrice: true,
-    books: true,
-    never: "fechar orçamento sem ver o carro",
-  },
-  clinica: {
-    biz: "Clínica Aurora",
-    sells: "estética e bem-estar",
+  odonto: {
+    biz: "Clínica Vértice Odontologia",
+    sells: "implantes, lentes e alinhadores invisíveis",
     tone: "formal",
     hours: "24h",
-    price: "R$ 180,00",
+    price: "R$ 350,00 a avaliação com tomografia",
+    tellsPrice: true,
+    books: true,
+    never: "fechar valor de implante sem a tomografia da avaliação",
+  },
+  harmonizacao: {
+    biz: "Clínica Lumière",
+    sells: "toxina botulínica, preenchimento e bioestimulador",
+    tone: "caloroso",
+    hours: "24h",
+    price: "R$ 250,00 a avaliação facial",
     tellsPrice: false,
     books: true,
-    never: "falar de resultado de tratamento por mensagem",
+    never: "prometer resultado ou falar do caso de outro paciente",
+  },
+  capilar: {
+    biz: "Instituto Raiz",
+    sells: "transplante capilar FUE e tratamento capilar",
+    tone: "direto",
+    hours: "24h",
+    price: "R$ 400,00 a avaliação com tricoscopia",
+    tellsPrice: true,
+    books: true,
+    never: "estimar número de fios sem a tricoscopia",
+  },
+  estetica: {
+    biz: "Clínica Aurora",
+    sells: "protocolos corporais e faciais",
+    tone: "caloroso",
+    hours: "24h",
+    price: "R$ 200,00 a avaliação corporal",
+    tellsPrice: true,
+    books: true,
+    never: "vender pacote antes da avaliação",
   },
 };
 
@@ -120,7 +120,7 @@ export const labPresets: Record<string, BotRules> = {
 export const labQuestions = [
   { key: "preco", text: "Quanto custa?" },
   { key: "horario", text: "Vocês atendem agora?" },
-  { key: "agendar", text: "Consigo marcar para amanhã?" },
+  { key: "agendar", text: "Consigo marcar uma avaliação?" },
   { key: "robo", text: "Você é um robô?" },
   { key: "endereco", text: "Onde vocês ficam?" },
   { key: "humano", text: "Quero falar com uma pessoa" },
@@ -134,7 +134,7 @@ export function detectIntent(text: string): Intent {
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
-  if (/(preco|valor|quanto|custa|orcamento|mensalidade|caro)/.test(t)) return "preco";
+  if (/(preco|valor|quanto|custa|orcamento|parcel|cartao|convenio|mensalidade|caro)/.test(t)) return "preco";
   if (/(agora|aberto|hoje|funciona|atende|horario|que horas)/.test(t)) return "horario";
   if (/(marcar|agendar|reservar|encomendar|amanha|vaga|horario livre)/.test(t)) return "agendar";
   if (/(robo|bot|ia|inteligencia|humano de verdade|automatic)/.test(t)) return "robo";

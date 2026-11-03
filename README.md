@@ -1,6 +1,6 @@
 # deusudo.com
 
-Site principal da SUDO: monstruário de soluções, resultados de clientes, demo de vitrine por ramo, páginas de case e contato pelo WhatsApp.
+Site principal da SUDO: monstruário de soluções, resultados de clientes, demo de vitrine por ramo, páginas de case e contato pelo WhatsApp. O público foco é clínica de ticket alto — odontologia, harmonização facial, transplante capilar, estética avançada — e os exemplos do site seguem essa faixa.
 
 Next.js 15 (App Router) + TypeScript, sem Tailwind. O visual está em `app/globals.css`.
 
@@ -177,7 +177,8 @@ WhatsApp, em `ChatAnti-Ban/SYSTEM-PROMPT.md`: se mudar uma regra aqui, mude lá 
 | **Vídeo de apresentação** | `lib/config.ts`, campo `video` (`youtubeId` de um vídeo "não listado" **ou** `mp4` de um arquivo em `public/`) |
 | Números dos resultados e textos dos cases | `lib/content.ts` (`results`, `cases`) |
 | Soluções do monstruário, perguntas frequentes, passos | `lib/content.ts` |
-| Ramos da demo (itens, preços, conversa) | `lib/niches.ts` |
+| Ramos da demo (itens, preços, conversa) | `lib/niches.ts` — odontologia, harmonização facial, transplante capilar e estética avançada, na faixa de ticket do público foco |
+| **Chamado "o seu negócio comporta mais clientes?"** | `lib/content.ts` (`capacity`), seção em `components/Capacity.tsx` (fora do menu, chega pelo botão do topo da home) |
 | Seções do menu (topo e celular) | `lib/nav.ts` |
 | Foto | `public/leo.jpg` (proporção 4:5) |
 | **Logos dos clientes** | `public/logos/flor-da-pele.png`, `carlito-botecaria.png`, `espaco-granjear.png` (aceita svg, png, webp, jpg). Sem arquivo, o site mostra o nome em texto |

@@ -105,7 +105,7 @@ export function Diagnostic() {
             />
             <Range
               id="d-tic"
-              label="Ticket médio de uma venda"
+              label="Ticket médio de um tratamento fechado"
               value={sim.ticket}
               display={brl(sim.ticket)}
               range={simRanges.ticket}

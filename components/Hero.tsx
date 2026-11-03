@@ -17,9 +17,7 @@ export function Hero() {
           <p className="lead">
             Anúncio que traz quem tem perfil de fechar, página que
             qualifica antes de ocupar sua agenda, atendente de IA que responde em segundos e não deixa
-            lead esfriar, e agenda cheia de consulta que vira tratamento. No fim do mês você vê quanto
-            entrou de lead, quanto virou consulta, quanto virou contrato e quanto custou cada paciente
-            novo.
+            lead esfriar. Quer entender como tudo isso funciona no seu negócio?
           </p>
           <div className="cta-row">
             <a

@@ -15,10 +15,11 @@ export function Hero() {
         <div>
           <h1>Menos tarefa repetitiva. Mais lucro e controle.</h1>
           <p className="lead">
-            Feito para quem vende tratamento caro pelo WhatsApp: odontologia, harmonização, capilar,
-            estética. Anúncio que traz paciente com perfil de fechar, página que qualifica, atendente
-            de IA que responde em segundos e reunião de diagnóstico para construir só o que a sua
-            operação precisa. Depois, manutenção e relatório mensal.
+            Anúncio que traz quem tem perfil de fechar, página que
+            qualifica antes de ocupar sua agenda, atendente de IA que responde em segundos e não deixa
+            lead esfriar, e agenda cheia de consulta que vira tratamento. No fim do mês você vê quanto
+            entrou de lead, quanto virou consulta, quanto virou contrato e quanto custou cada paciente
+            novo.
           </p>
           <div className="cta-row">
             <a

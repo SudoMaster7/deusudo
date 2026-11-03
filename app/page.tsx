@@ -1,6 +1,9 @@
 import { faqSchema, jsonLdProps } from "@/lib/schema";
 import { NicheProvider } from "@/components/NicheContext";
 import { Hero } from "@/components/Hero";
+import { Flow } from "@/components/Flow";
+import { Diagnostic } from "@/components/Diagnostic";
+import { BotLab } from "@/components/BotLab";
 import { Demo } from "@/components/Demo";
 import { Contact } from "@/components/Contact";
 import {
@@ -11,9 +14,9 @@ import {
   Footer,
   Header,
   Problems,
+  ReportSection,
   Results,
   Solutions,
-  Steps,
 } from "@/components/Sections";
 
 export default function Home() {
@@ -28,11 +31,14 @@ export default function Home() {
           </div>
         </section>
         <Problems />
+        <Flow />
         <Solutions />
         <Results />
+        <Diagnostic />
+        <BotLab />
         <Demo />
         <DataSection />
-        <Steps />
+        <ReportSection />
         <About />
         <Faq />
         <Contact />

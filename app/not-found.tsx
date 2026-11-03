@@ -37,7 +37,7 @@ export default function NotFound() {
             <nav className="nf-links" aria-label="Seções do site">
               <Link href="/#solucoes">Soluções</Link>
               <Link href="/#resultados">Resultados</Link>
-              <Link href="/#demo">Demo</Link>
+              <Link href="/#testar">Testar o atendente</Link>
               <Link href="/#contato">Contato</Link>
             </nav>
           </div>

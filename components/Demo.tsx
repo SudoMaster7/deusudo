@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { NICHES, type NicheKey } from "@/lib/niches";
-import { waLink } from "@/lib/config";
+import { leadLink } from "@/lib/config";
 import { Icon } from "./Icons";
 import { NicheChips, useNiche } from "./NicheContext";
 
@@ -40,6 +40,13 @@ function DemoBody({ niche }: { niche: NicheKey }) {
   const total = n.items.reduce((s, it, i) => s + it.price * cart[i], 0);
   const message = lines.length
     ? `[Demonstração do site deusudo.com - ${n.biz}]\n${n.hello}\n${lines.join("\n")}\nTotal: ${brl(total)}`
+    : null;
+  const link = message
+    ? leadLink({
+        origem: "vitrine",
+        abertura: message,
+        dados: { ramo_da_demo: n.label, itens: lines, total: brl(total) },
+      })
     : null;
 
   return (
@@ -86,12 +93,12 @@ function DemoBody({ niche }: { niche: NicheKey }) {
           </div>
           <a
             className="btn"
-            href={message ? waLink(message) : "#demo"}
+            href={link ?? "#demo"}
             target="_blank"
             rel="noopener noreferrer"
-            aria-disabled={!message}
+            aria-disabled={!link}
             onClick={(e) => {
-              if (!message) e.preventDefault();
+              if (!link) e.preventDefault();
             }}
           >
             {n.cta}

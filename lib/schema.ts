@@ -18,7 +18,7 @@ export const organizationSchema = {
   email: site.email,
   telephone: `+${site.whatsapp}`,
   description:
-    "Atendimento com inteligência artificial no WhatsApp, anúncios que trazem clientes e sistemas sob medida para clínicas, estética, bares e comércio.",
+    "Fluxo completo de aquisição: tráfego pago direcionado, landing page que qualifica, atendente de IA no WhatsApp que responde em segundos, reunião de diagnóstico, desenvolvimento sob medida e relatório mensal.",
   priceRange: "$$",
   founder: { "@type": "Person", name: "Leonardo Brito", url: site.technicalPortfolio },
   address: {
@@ -45,6 +45,7 @@ export const organizationSchema = {
     name: "Soluções SUDO",
     itemListElement: [
       "Atendente de IA no WhatsApp",
+      "Fluxo completo: tráfego pago, landing page, atendente de IA e relatório mensal",
       "Tráfego pago com relatório por fase",
       "Sistemas sob medida",
       "Landing pages",

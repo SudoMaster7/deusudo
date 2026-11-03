@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import Link from "next/link";
-import { site, waLink } from "@/lib/config";
-import { faqs, problems, results, resultsNote, solutions, steps } from "@/lib/content";
+import { leadLink, site } from "@/lib/config";
+import { faqs, problems, report, results, resultsNote, solutions } from "@/lib/content";
 import { AboutVideo } from "./AboutVideo";
 import { Icon } from "./Icons";
 import { NAV_LINKS } from "@/lib/nav";
@@ -24,7 +24,7 @@ export function Header() {
         </nav>
         <a
           className="btn sm"
-          href={waLink("Olá! Vim pelo site da SUDO.")}
+          href={leadLink({ origem: "menu", abertura: "Olá! Vim pelo site da SUDO." })}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -210,19 +210,41 @@ export function DataSection() {
   );
 }
 
-export function Steps() {
+export function ReportSection() {
   return (
-    <section className="steps-band band">
-      <div className="wrap">
-        <h2>Como funciona</h2>
-        <ol className="steps">
-          {steps.map((s) => (
-            <li key={s.title}>
-              <h3>{s.title}</h3>
-              <p>{s.text}</p>
+    <section className="report-band band" id="relatorio">
+      <div className="wrap report-grid">
+        <div>
+          <h2>Todo mês você recebe o relatório, não um palpite</h2>
+          <p className="sub">
+            Depois que o fluxo está rodando, o trabalho vira manutenção e acompanhamento. O relatório
+            mensal é onde você vê se o custo por cliente caiu, qual anúncio cansou e o que muda no mês
+            seguinte.
+          </p>
+          <a
+            className="btn"
+            href={leadLink({
+              origem: "fluxo",
+              abertura: "Olá! Quero ver um exemplo do relatório mensal da SUDO.",
+              dados: { interesse: "exemplo de relatorio mensal" },
+            })}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Ver um exemplo de relatório
+          </a>
+        </div>
+        <ul className="report">
+          {report.map(([title, text]) => (
+            <li key={title}>
+              <Icon name="check" />
+              <div>
+                <strong>{title}</strong>
+                <span>{text}</span>
+              </div>
             </li>
           ))}
-        </ol>
+        </ul>
       </div>
     </section>
   );

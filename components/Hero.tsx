@@ -1,7 +1,7 @@
 "use client";
 
 import { NICHES } from "@/lib/niches";
-import { waLink } from "@/lib/config";
+import { leadLink } from "@/lib/config";
 import { Icon } from "./Icons";
 import { NicheChips, useNiche } from "./NicheContext";
 
@@ -15,20 +15,25 @@ export function Hero() {
         <div>
           <h1>Menos tarefa repetitiva. Mais lucro e controle.</h1>
           <p className="lead">
-            A SUDO monta atendimento com IA no WhatsApp, anúncios e sistemas sob medida para o seu
-            negócio, e mostra em números o que mudou.
+            Anúncio que traz cliente direcionado, página que qualifica, atendente de IA que responde
+            em segundos e reunião de diagnóstico para construir só o que o seu negócio precisa.
+            Depois, manutenção e relatório mensal.
           </p>
           <div className="cta-row">
             <a
               className="btn"
-              href={waLink("Olá! Vim pelo site da SUDO e quero um diagnóstico gratuito.")}
+              href={leadLink({
+                origem: "topo",
+                abertura: "Olá! Vim pelo site da SUDO e quero um diagnóstico gratuito.",
+                dados: { ramo_escolhido_no_site: n.label },
+              })}
               target="_blank"
               rel="noopener noreferrer"
             >
               Quero um diagnóstico gratuito
             </a>
-            <a className="btn ghost" href="#demo">
-              Ver a demo
+            <a className="btn ghost" href="#fluxo">
+              Ver o fluxo completo
             </a>
           </div>
           <p className="pick">Escolha o seu ramo e veja o atendimento ao lado:</p>

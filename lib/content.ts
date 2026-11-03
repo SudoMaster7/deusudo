@@ -136,12 +136,125 @@ export const results = [
 export const resultsNote =
   "Dados do Gerenciador de Anúncios da Meta: spa de 21/07 a 23/10/2026 e bar de 03/08 a 23/10/2026. O custo por conversa sobe quando o mesmo anúncio roda sem pausa, por isso a SUDO renova os criativos e acompanha cada fase.";
 
-export const steps = [
-  { title: "Diagnóstico gratuito", text: "Conversamos sobre o seu negócio e onde você perde clientes e tempo." },
-  { title: "Proposta clara", text: "Você sabe o que vai receber, o prazo e o valor." },
-  { title: "Implantação", text: "Em 30 a 45 dias está tudo funcionando. Você não mexe em nada técnico." },
-  { title: "Acompanhamento", text: "Relatório com números reais e ajustes contínuos." },
+// O fluxo que a SUDO roda de ponta a ponta. É a seção central do site:
+// cada etapa abre num painel com o que acontece, o que o cliente recebe e
+// o número que a SUDO acompanha naquela etapa.
+export type Stage = {
+  key: string;
+  short: string;
+  title: string;
+  when: string;
+  lead: string;
+  does: string[];
+  gets: string;
+  metric: [string, string];
+};
+
+export const funnel: Stage[] = [
+  {
+    key: "trafego",
+    short: "Tráfego pago",
+    title: "Anúncio para quem já quer comprar",
+    when: "Começa a rodar na primeira semana",
+    lead:
+      "Em vez de impulsionar post para quem passa na frente, a campanha é montada para o público que compra de você: a sua cidade, a sua faixa de idade, o seu tipo de serviço.",
+    does: [
+      "Público local e segmentado, não o botão de impulsionar.",
+      "Vários criativos ao mesmo tempo, cada um com orçamento próprio.",
+      "Criativo renovado por fase, antes do custo por conversa subir.",
+    ],
+    gets: "Clientes direcionados chegando todos os dias, com o custo de cada um na mão.",
+    metric: ["R$ 4,13", "custo médio por conversa no spa da Tijuca"],
+  },
+  {
+    key: "landing",
+    short: "Landing page",
+    title: "A página qualifica antes de você gastar tempo",
+    when: "No mesmo clique do anúncio",
+    lead:
+      "Quem clica cai numa página com uma ação só: falar com você. Antes disso, ela pergunta o essencial — ramo, cidade, o que a pessoa precisa, qual é a dor de hoje.",
+    does: [
+      "Uma página por campanha, com a cara do negócio.",
+      "Perguntas curtas, respondidas em toques, sem formulário longo.",
+      "As respostas seguem junto na mensagem do WhatsApp.",
+    ],
+    gets: "Curioso separado de cliente antes de alguém digitar a primeira resposta.",
+    metric: ["0 campos", "obrigatórios para falar com você"],
+  },
+  {
+    key: "chatbot",
+    short: "Atendente de IA",
+    title: "Resposta em segundos, não em horas",
+    when: "24h, inclusive fim de semana",
+    lead:
+      "O atendente recebe a pessoa já sabendo o que ela respondeu na página. Não repete pergunta: continua de onde a página parou, aprofunda a dor e levanta as características do negócio.",
+    does: [
+      "Responde texto e áudio com as informações reais do seu negócio.",
+      "Puxa o resto da qualificação com naturalidade, uma pergunta por vez.",
+      "Te avisa no WhatsApp quando o lead está pronto, com o resumo escrito.",
+    ],
+    gets: "Lead quente, com dor e contexto escritos, enquanto ainda está interessado.",
+    metric: ["segundos", "entre a mensagem e a resposta"],
+  },
+  {
+    key: "reuniao",
+    short: "Reunião de diagnóstico",
+    title: "Vinte minutos para decidir o que construir",
+    when: "Marcada por você, com o lead já qualificado",
+    lead:
+      "Você entra na conversa com o histórico na mão e marca a reunião. Nela a gente separa o que dá retorno agora do que pode esperar.",
+    does: [
+      "Mapa de onde o negócio perde cliente e tempo hoje.",
+      "Escopo do que será construído, em ordem de retorno.",
+      "Proposta com prazo e valor, sem jargão.",
+    ],
+    gets: "Clareza do que vai ser feito, quanto custa e quando fica pronto.",
+    metric: ["20 min", "sem compromisso e sem custo"],
+  },
+  {
+    key: "desenvolvimento",
+    short: "Desenvolvimento",
+    title: "Só o que o negócio precisa",
+    when: "30 a 45 dias para a solução completa",
+    lead:
+      "A construção é sob medida: atendente de IA, campanhas, páginas, sistema. Nada de pagar por mil funções que você nunca vai abrir.",
+    does: [
+      "Atendente treinado com os seus serviços, preços e regras.",
+      "Sistema, painel ou vitrine quando o diagnóstico mostra que vale.",
+      "Testes com você antes de qualquer coisa ir ao ar.",
+    ],
+    gets: "Tudo funcionando sem você mexer em nada técnico.",
+    metric: ["30-45", "dias até estar rodando"],
+  },
+  {
+    key: "manutencao",
+    short: "Manutenção e relatório",
+    title: "Depois é manutenção e relatório mensal",
+    when: "Todo mês, enquanto estiver rodando",
+    lead:
+      "A obra grande acaba. O que continua é manutenção e o relatório mensal, para você acompanhar o processo com número e não com impressão.",
+    does: [
+      "Ajuste no atendente conforme chegam perguntas novas.",
+      "Criativo renovado e campanha reequilibrada por fase.",
+      "Relatório mensal com conversas, custo por conversa e recomendação.",
+    ],
+    gets: "O mesmo fluxo rodando, mais barato por cliente a cada ciclo.",
+    metric: ["1 relatório", "por mês, com os números reais"],
+  },
 ];
+
+export const funnelNote =
+  "É esse fluxo que roda hoje nos clientes da SUDO. Cada etapa pode ser contratada sozinha, mas é junto que o custo por cliente cai.";
+
+// O que aparece no relatório mensal.
+export const report = [
+  ["Conversas abertas no WhatsApp", "quantas pessoas falaram com você no mês"],
+  ["Custo por conversa", "quanto custou cada cliente interessado, por anúncio"],
+  ["Desempenho por criativo", "qual anúncio ainda vende e qual já cansou"],
+  ["Atendimento da IA", "quantas conversas ela fechou sozinha e quando chamou você"],
+  ["Alcance e público", "quem está sendo atingido e onde"],
+  ["Recomendação da fase", "o que pausar, o que renovar e o que testar no mês seguinte"],
+] as [string, string][];
 
 export const faqs = [
   {
@@ -163,6 +276,26 @@ export const faqs = [
   {
     q: "Meus dados e os dos meus clientes ficam seguros?",
     a: "Sim. Trabalhamos seguindo a LGPD, com acesso restrito e servidores protegidos.",
+  },
+  {
+    q: "Preciso contratar o fluxo inteiro?",
+    a: "Não. Cada etapa funciona sozinha: só os anúncios, só a página, só o atendente de IA. Junto o custo por cliente cai, porque o anúncio traz gente direcionada e o atendente responde antes de ela desistir.",
+  },
+  {
+    q: "Em quanto tempo o atendente responde?",
+    a: "Em segundos, a qualquer hora. É isso que muda o jogo: a maior parte das mensagens chega fora do horário comercial, e quem espera até o dia seguinte já comprou do concorrente.",
+  },
+  {
+    q: "O atendente vai fingir que é uma pessoa?",
+    a: "Não. Ele se apresenta como IA da SUDO quando perguntam, qualifica a conversa e chama você quando o lead está pronto. Quem marca reunião e fala de valor é você, não ele.",
+  },
+  {
+    q: "Quanto preciso investir em anúncio?",
+    a: "Os clientes atuais rodam com algo entre R$ 500 e R$ 700 por mês em mídia e trazem conversa a R$ 4 ou R$ 5 cada. O valor certo para o seu caso sai no diagnóstico, junto com a estimativa de conversas.",
+  },
+  {
+    q: "O que vem no relatório mensal?",
+    a: "Conversas abertas, custo por conversa, desempenho de cada criativo, o que a IA resolveu sozinha, alcance e a recomendação da fase: o que pausar, o que renovar e o que testar.",
   },
   {
     q: "Quanto custa?",

@@ -21,7 +21,7 @@ const body = Figtree({
 
 const title = "SUDO | Atendimento com IA, anúncios e sistemas para o seu negócio";
 const description =
-  "Atendente de IA no WhatsApp, anúncios que trazem clientes e sistemas sob medida para clínicas, spas, restaurantes e comércio no Rio de Janeiro. Diagnóstico gratuito.";
+  "Anúncio que traz cliente direcionado, página que qualifica, atendente de IA que responde em segundos e reunião de diagnóstico. Depois, manutenção e relatório mensal. Rio de Janeiro e Baixada.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -37,6 +37,8 @@ export const metadata: Metadata = {
     "tráfego pago Rio de Janeiro",
     "sistema sob medida",
     "automação para clínicas",
+    "funil de tráfego pago com chatbot",
+    "landing page que qualifica lead",
     "agência de tecnologia Duque de Caxias",
   ],
   category: "technology",
